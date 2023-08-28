@@ -16,7 +16,9 @@
 
                 <?php 
                     $username = $password = $passwordXtra = $email = $gender = $birthday = $transport = "";
+
                     $errorOccured = false;
+                    $errorEmpty = '';
 
 
                     // FORM WAS SUBMITTED
@@ -26,18 +28,11 @@
 
                         if (anyIsEmpty($inputs)) {
                             $errorOccured = true;
+                            $errorEmpty = 'Tous les champs doivent être remplis';
                         }
 
                     }
-                    elseif ($_SERVER['REQUEST_METHOD'] != 'POST' || $errorOccured == true) {    // maybe enlever '== true'
-                        ?>
-
-                        <?php 
-                            if ($errorOccured) {
-                                echo "<p>BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</p>";
-                            }
-                        
-                        
+                    if ($_SERVER['REQUEST_METHOD'] != 'POST' || $errorOccured == true) {    // maybe enlever '== true'
                         ?>
 
                         <form action="
@@ -83,10 +78,15 @@
                                 </select>
                             </div>
 
-                                
+                            <p class="text-danger">
+                                <?php 
+                                    if ($errorOccured) {
+                                        echo $errorEmpty;
+                                    }
+                                ?>
+                            </p>
 
-
-                                <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                            <button type="submit" class="btn btn-primary mt-5">Submit</button>
                         </form>
                         <?php
 
