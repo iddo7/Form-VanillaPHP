@@ -16,6 +16,15 @@
 
                 <?php 
                     $username = $password = $passwordXtra = $email = $gender = $birthday = $transport = "";
+                    $valuesInputed = array(
+                        'username' => "",
+                        'password' => "",
+                        'passwordXtra' => "",
+                        'email' => "",
+                        'gender' => "",
+                        'birthday' => "",
+                        'transport' => "",
+                    );
 
                     $errorOccured = false;
                     $errorEmpty = '';
@@ -30,6 +39,18 @@
                             $errorOccured = true;
                             $errorEmpty = 'Tous les champs doivent être remplis';
                         }
+                        else {
+                            for ($i = 0; $i < sizeof($inputs); $i++) {
+                                $valuesInputed[$i] = $_POST[$inputs[$i]];
+                            }
+                        }
+
+                        if (!$errorOccured) {
+                            foreach($valuesInputed as $value) {
+                                echo $value;
+                            }
+                        }
+
 
                     }
                     if ($_SERVER['REQUEST_METHOD'] != 'POST' || $errorOccured == true) {    // maybe enlever '== true'
@@ -41,7 +62,7 @@
                             ?>
                         " method="post">
                             <div class="input-group">
-                                <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3" value="<?php echo $username;?>">
+                                <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3" value="<?php echo $valuesInputed['username'];?>">
                             </div>
                             <div class="input-group">
                                 <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control mb-3" value="<?php echo $password;?>">
@@ -105,6 +126,14 @@
                         }
 
                         return $result;
+                    }
+
+                    function trojan($data){
+                        $data = trim($data); //Enleve les caractères invisibles
+                        $data = addslashes($data); //Mets des backslashs devant les ' et les  "
+                        $data = htmlspecialchars($data); // Remplace les caractères spéciaux par leurs symboles comme ­< devient &lt;
+                        
+                        return $data;
                     }
                 
                 ?>
