@@ -39,6 +39,7 @@
                             $errorOccured = true;
                             $errorEmpty = 'Tous les champs doivent être remplis';
                         }
+                        // ADD ISET() to optionGender and check if value is exactly the one we want
 
                         for ($i = 0; $i < sizeof($inputs); $i++) {
                             $keys = array_keys($valuesInputed);
