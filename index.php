@@ -15,15 +15,15 @@
                 <h1 class="mb-4">Porjet 2</h1>
 
                 <?php 
-                    $username = $password = $passwordXtra = $email = $gender = $birthday = $transport = "";
+                    // $username = $password = $passwordXtra = $email = $gender = $birthday = $transport = "";
                     $valuesInputed = array(
-                        'username' => "",
-                        'password' => "",
-                        'passwordXtra' => "",
-                        'email' => "",
-                        'gender' => "",
-                        'birthday' => "",
-                        'transport' => "",
+                        "username" => "",
+                        "password" => "",
+                        "passwordXtra" => "",
+                        "email" => "",
+                        "gender" => "",
+                        "birthday" => "",
+                        "transport" => "default",
                     );
 
                     $errorOccured = false;
@@ -39,10 +39,10 @@
                             $errorOccured = true;
                             $errorEmpty = 'Tous les champs doivent être remplis';
                         }
-                        else {
-                            for ($i = 0; $i < sizeof($inputs); $i++) {
-                                $valuesInputed[$i] = $_POST[$inputs[$i]];
-                            }
+
+                        for ($i = 0; $i < sizeof($inputs); $i++) {
+                            $keys = array_keys($valuesInputed);
+                            $valuesInputed[$keys[$i]] = trojan($_POST[$inputs[$i]]);
                         }
 
                         if (!$errorOccured) {
@@ -65,37 +65,37 @@
                                 <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3" value="<?php echo $valuesInputed['username'];?>">
                             </div>
                             <div class="input-group">
-                                <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control mb-3" value="<?php echo $password;?>">
-                                <input type="password" id="passwordXtra" name="passwordXtra" placeholder="Vérifier mot de passe" class="form-control mb-3" value="<?php echo $passwordXtra;?>">
+                                <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control mb-3" value="<?php echo $valuesInputed['password'];?>">
+                                <input type="password" id="passwordXtra" name="passwordXtra" placeholder="Vérifier mot de passe" class="form-control mb-3" value="<?php echo $valuesInputed['passwordXtra'];?>">
                             </div>
                             <div class="input-group">
-                                <input type="email" id="email" name="email" placeholder="Adresse courriel" class="form-control mb-3" value="<?php echo $email;?>">
+                                <input type="email" id="email" name="email" placeholder="Adresse courriel" class="form-control mb-3" value="<?php echo $valuesInputed['email'];?>">
                             </div>
                             <div class="input-group">
                                 <a href="https://i.pinimg.com/originals/54/91/69/549169ad62f98b3731dd61558a26e6db.jpg">
                                     <button class="btn btn-dark">Avatar</button>
                                 </a>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="optionGender" id="optionMale" value="male" <?php echo $gender == 'male' ? 'checked' : '' ?>>
+                                    <input class="form-check-input" type="radio" name="optionGender" id="optionMale" value="male">
                                     <label class="form-check-label" for="optionMale">Masculin</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="optionGender" id="optionFemale" value="female" <?php echo $gender == 'female' ? 'checked' : '' ?>>
+                                    <input class="form-check-input" type="radio" name="optionGender" id="optionFemale" value="female">
                                     <label class="form-check-label" for="optionFemale">Féminin</label>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <label class="input-group-text" for="birthday">Date de naissance</label>
-                                <input type="date" id="birthday" name="birthday" class="form-control mb-3" value="<?php echo $birthday;?>">
+                                <input type="date" id="birthday" name="birthday" class="form-control mb-3" value="<?php echo $valuesInputed['birthday'];?>">
                             </div>
                             <div class="input-group">
                                 <label class="input-group-text" for="transport">Moyen de transport</label>
-                                <select class="form-select" id="transport">
-                                    <option selected>Choose...</option>
-                                    <option value="auto">Auto</option>
-                                    <option value="autobus">Autobus</option>
-                                    <option value="marche">Marche</option>
-                                    <option value="velo">Vélo</option>
+                                <select class="form-select" id="transport" name="transport">
+                                    <option <?php echo $valuesInputed['transport'] == 'default' ? 'selected' : '' ?>>Choose...</option>
+                                    <option <?php echo $valuesInputed['transport'] == 'auto' ? 'selected' : '' ?> value="auto">Auto</option>
+                                    <option <?php echo $valuesInputed['transport'] == 'autobus' ? 'selected' : '' ?> value="autobus">Autobus</option>
+                                    <option <?php echo $valuesInputed['transport'] == 'marche' ? 'selected' : '' ?> value="marche">Marche</option>
+                                    <option <?php echo $valuesInputed['transport'] == 'vélo' ? 'selected' : '' ?> value="velo">Vélo</option>
                                 </select>
                             </div>
 
