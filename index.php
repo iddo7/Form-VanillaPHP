@@ -19,33 +19,41 @@
                     $errorOccured = false;
 
 
+                    // FORM WAS SUBMITTED
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                        // FORM WAS SUBMITTED
 
                         $inputs = array("username", "password", "passwordXtra", "email", "optionGender", "birthday", "transport");
 
                         if (anyIsEmpty($inputs)) {
-                            echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+                            $errorOccured = true;
                         }
 
                     }
-                    else {
+                    elseif ($_SERVER['REQUEST_METHOD'] != 'POST' || $errorOccured == true) {    // maybe enlever '== true'
                         ?>
+
+                        <?php 
+                            if ($errorOccured) {
+                                echo "<p>BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</p>";
+                            }
+                        
+                        
+                        ?>
+
                         <form action="
                             <?php 
                                 echo htmlspecialchars($_SERVER['PHP_SELF']);
                             ?>
                         " method="post">
                             <div class="input-group">
-                                <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3" value="<?php echo $nom;?>">
+                                <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3" value="<?php echo $username;?>">
                             </div>
                             <div class="input-group">
-                                <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control mb-3" value="<?php echo $nom;?>">
-                                <input type="password" id="passwordXtra" name="passwordXtra" placeholder="Vérifier mot de passe" class="form-control mb-3" value="<?php echo $nom;?>">
+                                <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control mb-3" value="<?php echo $password;?>">
+                                <input type="password" id="passwordXtra" name="passwordXtra" placeholder="Vérifier mot de passe" class="form-control mb-3" value="<?php echo $passwordXtra;?>">
                             </div>
                             <div class="input-group">
-                                <input type="email" id="email" name="email" placeholder="Adresse courriel" class="form-control mb-3" value="<?php echo $nom;?>">
+                                <input type="email" id="email" name="email" placeholder="Adresse courriel" class="form-control mb-3" value="<?php echo $email;?>">
                             </div>
                             <div class="input-group">
                                 <a href="https://i.pinimg.com/originals/54/91/69/549169ad62f98b3731dd61558a26e6db.jpg">
@@ -62,7 +70,7 @@
                             </div>
                             <div class="input-group">
                                 <label class="input-group-text" for="birthday">Date de naissance</label>
-                                <input type="date" id="birthday" name="birthday" class="form-control mb-3" value="<?php echo $nom;?>">
+                                <input type="date" id="birthday" name="birthday" class="form-control mb-3" value="<?php echo $birthday;?>">
                             </div>
                             <div class="input-group">
                                 <label class="input-group-text" for="transport">Moyen de transport</label>
@@ -95,6 +103,8 @@
                                 break;
                             }
                         }
+
+                        return $result;
                     }
                 
                 ?>
